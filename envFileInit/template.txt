@@ -1,0 +1,3 @@
+POSTGRES_USER=auto
+POSTGRES_PASS=password
+POSTGRES_DBID=blog_ap
