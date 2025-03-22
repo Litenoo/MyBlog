@@ -1,0 +1,6 @@
+[submodule "subServices/MyBlogBackend"]
+	path = subServices/MyBlogBackend
+	url = https://github.com/Litenoo/MyBlogBackend.git
+[submodule "subServices/MyBlogFrontend"]
+	path = subServices/MyBlogFrontend
+	url = https://github.com/Litenoo/MyBlogFrontend.git

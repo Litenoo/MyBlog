@@ -1,3 +1,1 @@
-POSTGRES_USER=auto
-POSTGRES_PASS=password
-POSTGRES_DBID=blog_ap
+DATABASE_URL=postgresql://auto:password@localhost@:5432/blog_app
