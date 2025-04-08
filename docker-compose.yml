@@ -1,26 +1,43 @@
-version: "3.8"
-
 services:
+  traefik:
+    image: "traefik:v2.9"
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true" #Turn off in post production
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock" # check security later
+    labels:
+      - "traefik.enable=true"
   frontend:
-    build: ./subServices/frontend
+    build: ./subServices/MyBlogFrontend
     ports:
       - 5173:5173
     depends_on:
       - backend
   backend:
-    build: ./subServices/backend
+    build: ./subServices/MyBlogBackend
     ports:
-     - 3001:3001
+     - 3000:3000
     environment:
-      DATABASE_URL: "postgres://auto:password@db:5432/mydb"
+      DATABASE_URL: "postgres://auto:password@postgres:5432/mydb"
     depends_on:
-     - db
-  db:
+     - postgres
+  postgres:
     image: postgres:15
+    restart: always
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER: auto
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mydb
+    ports:
+    - "5433:5432"
     volumes:
     - postgres_data:/var/lib/postgresql/data
 
