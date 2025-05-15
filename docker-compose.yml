@@ -6,7 +6,7 @@ services:
       - "--api.insecure=true" #Turn off in post production
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.address=:443"  
     ports:
       - "80:80"
       - "443:443"
@@ -24,7 +24,7 @@ services:
   backend:
     build: ./subServices/MyBlogBackend
     ports:
-     - 3000:3000
+     - 3001:3001
     environment:
       DATABASE_URL: "postgres://auto:password@postgres:5432/mydb"
     depends_on:
