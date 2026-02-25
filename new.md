@@ -35,5 +35,7 @@ Just a simple structure to store post, with md file reference as content
 
 Version > 1.0
 - add search by name feature for posts
+- add /pl & /en folders for english and polish lang
+- add management tab for admin at /admin
 
 
