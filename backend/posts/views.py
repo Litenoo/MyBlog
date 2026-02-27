@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .models import Post
+from .serializers import PostSerializer
 
-# Create your views here.
 
-def post_list(request):
-    posts = Post.objects.filter(published=True)
-    return render(request, "posts/post_list.html", {"posts": posts})
+class PostListAPIView(ListAPIView):
+    queryset = Post.objects.filter(published=True)
+    serializer_class = PostSerializer
+
+class PostDetailAPIView(RetrieveAPIView):
+    queryset = Post.objects.filter(published=True)
+    serializer_class = PostSerializer
+    lookup_field = "slug"
