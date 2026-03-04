@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
 
-<div class="main_container">
-    <img src="/static/images/avatar.png" class="avatar" alt="Avatar">
-    <span>Liten</span>
+{% csrf_token %}
 
-    <span class="content">
-        Hello I am young software enthusiast from Poland. I really like python, maths etc. Lorem ipsum dolor amet.
-        I am really kind of exicted about tomatoe ketchup. I really like it phew.
+
+<div class="main_container">
+    <h4>Hellooo, im Liten</h4>
+
+    <span class="about_section">
+        Why did I created this website ? 
+        It is mostly for me, so I can search for some article for a fast review in case I forgot some concepts that I learnt before.
+        I also thought that it may be sometimes useful to sent some of my private articles in case someone needs it, so why not to create own web site.
+        It is also professional to have own website 😎 
     </span>
+    
+    <form action="" class="searchbar">
+        <input type="search" placeholder=" > Search for something..."> <input type="submit">
+    </form>
+    <div id="post_container"></div>
 </div>
 
+<script src="{% static '/js/post_cards_loader.js' %}"></script>
 {% endblock %}

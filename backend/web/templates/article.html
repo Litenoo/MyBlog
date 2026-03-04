@@ -5,10 +5,13 @@
 
 {% block content %}
 
-<h3>{{ post.title }}</h3>
+<div class="main_container">
+    <h3>{{ post.title }}</h3>
 
-<div class="article-content">
-    {{ content_html|safe }}
+    <div class="article-content">
+        {{ content_html|safe }}
+    </div>
+
 </div>
 
 {% endblock %}

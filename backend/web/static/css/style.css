@@ -3,8 +3,10 @@
 }
 
 ::selection {
-  background-color: #50009b; /* highlight background */
-  color: #ffffff;            /* highlighted text color */
+    background-color: #50009b;
+    /* highlight background */
+    color: #ffffff;
+    /* highlighted text color */
 }
 
 body {
@@ -20,7 +22,13 @@ nav {
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    padding:4px;
+    padding: 4px;
+}
+
+.post_tile {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 button {
@@ -31,19 +39,15 @@ button {
     background: transparent;
     color: #566;
 
-    transition: 
+    transition:
         transform 0.2s ease,
         text-shadow 0.2s ease,
         color 0.2s ease;
 }
 
 button:hover {
-    color: #ffffff;
-    transform: scale(1.12);
-
-    text-shadow: 
-        0 0 5px rgba(100, 150, 255, 0.8),
-        0 0 12px rgba(100, 150, 255, 0.6);
+    color: #5300b8;
+    transform: scale(1.06);
 }
 
 .separator {
@@ -54,21 +58,86 @@ button:hover {
     background-color: #636363;
 }
 
+.small_text {
+    font-size: 13px;
+}
+
 .main_container {
-    max-width: 50%;
+    width: 50%;
+    min-width: 800px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.about_section {
     text-align: center;
 }
 
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #4a00a5;
-    display: block;
-    margin: 1vh auto;
+.searchbar {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    width: 420px;
+    transition: box-shadow 0.3s ease;
+    padding: 20px 0px;
+}
+
+.searchbar input[type="search"] {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgb(62, 62, 62);
+    outline: none;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 10px 0px 0px 10px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+
+.searchbar input[type="submit"] {
+    background-color: transparent;
+    color: rgb(155, 155, 155);
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    border: 1px solid rgb(62, 62, 62);
+    border-radius: 0px 10px 10px 0px;
+    transition: 0.2s;
+}
+
+.searchbar input[type="search"]:focus {
+    border: 1px solid rgb(116, 116, 116);
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+.searchbar input[type="submit"]:hover {
+    color: rgb(162, 162, 162);
+    border-color: rgb(116, 116, 116);
+    background: linear-gradient(16deg, #4a00a5, #110024);
+    transition: 0.2s;
+}
+
+#post_container {
+    margin-top: 24px;
+}
+
+.post_tile {
+    border-top: 1px solid rgb(62, 62, 62);
+    padding: 12px 36px 24px 36px;
+    text-align: left;
+    min-width: 520px;
+
+}
+
+.post_tile:hover {
+    cursor: pointer;
+}
+
+.post_tile>* {
+    padding: 4px;
 }
