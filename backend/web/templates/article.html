@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h3>{{ post.title }}</h3>
+
+<div class="article-content">
+    {{ content_html|safe }}
+</div>
+
+{% endblock %}
