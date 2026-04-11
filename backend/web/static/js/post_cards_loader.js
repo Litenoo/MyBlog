@@ -19,13 +19,44 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
+let searchTimer = null;
+
+
 let page = 1;
 let loading = false;
 let query = "";
 
+const container = document.getElementById("post_container");
+const input = document.getElementById("search_input");
+
+onInputChangeDebounce(input, (value) => {
+    console.log(`searchbar input : ${value}`);
+    page = 1;
+    query = value;
+    posts_list = [];
+    container.innerHTML="";
+    loadPosts();
+})
+
+async function onInputChangeDebounce(input, callback, delay = 700) {
+    let timeout_id = null;
+
+    input.addEventListener("input", () => {
+        clearTimeout(timeout_id);
+
+        timeout_id = setTimeout(() => {
+            callback(input.value)
+        }, delay);
+    })
+}
+
+
 async function loadPosts() {
 
-    const response = await fetch("/api/posts/", {
+    if (loading) return;
+    loading = true;
+
+    const response = await fetch(`/api/posts/?page=${page}`, {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -33,18 +64,19 @@ async function loadPosts() {
             "X-CSRFToken": csrftoken
         },
         body: JSON.stringify({
-            query: "",
-            page: page
+            query: query,
         })
     });
 
     const data = await response.json();
+
     renderPosts(data.results);
+
+    page += 1;
+    loading = false;
 }
 
 function renderPosts(posts) {
-
-    const container = document.getElementById("post_container");
 
     posts.forEach(post => {
 
@@ -53,13 +85,24 @@ function renderPosts(posts) {
         tile.classList.add("post_tile");
 
         const date = new Date(post.created_at);
-        const formatted = date.toISOString().split("T")[0];
+        let formatted = "";
 
-        const description = post.content.slice(0, 130)
+        if (!isNaN(date.getTime())) {
+            formatted = date.toISOString().split("T")[0];
+        }
 
+        const description = post.content.slice(0, 130);
+
+        const tags = post.tags;
+        let tags_display = "";
+
+        tags.forEach(tag => {
+            tags_display += `<a class="tag">${tag.title}</a>`;
+        });
 
         tile.innerHTML = `
             <h4>${post.title}</h4>
+            <div class="tags_container">${tags_display}</div>
             <div>${description}...</div>
             <div class="small_text">${formatted}</div>
         `;
@@ -67,18 +110,7 @@ function renderPosts(posts) {
         container.appendChild(tile);
     });
 
-    console.log("posts have been rendered !")
+    console.log("posts have been rendered !");
 }
-
-window.addEventListener("scroll", () => {
-
-    if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 300
-    ) {
-        loadPosts();
-    }
-
-});
 
 loadPosts();

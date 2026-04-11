@@ -20,14 +20,15 @@ class PostListAPI(APIView):
         query = request.data.get("query", "")
         page = request.data.get("page", 1)
 
-        posts = Post.objects.all().order_by("-created_at")
+        print(query)
+
+        posts = Post.objects.filter(published=True).order_by("-created_at")
 
         if query:
             posts = posts.filter(
                 Q(title__icontains=query) |
-                Q(description__icontains=query) |
-                Q(category__icontains=query)
-            )
+                Q(tags__title__icontains=query)
+            ).distinct()
         paginator = PostPagination()
         result_page = paginator.paginate_queryset(posts, request)
 

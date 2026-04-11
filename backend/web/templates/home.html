@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Liten | Home{% endblock %}
 
 {% block content %}
 
@@ -19,9 +19,10 @@
         It is also professional to have own website 😎 
     </span>
     
-    <form action="" class="searchbar">
-        <input type="search" placeholder=" > Search for something..."> <input type="submit">
-    </form>
+<form class="searchbar" onsubmit="return false;">
+    <input id="search_input" name="q" type="search" placeholder=" > Search for something...">
+    <input type="submit"></input> 
+</form>
     <div id="post_container"></div>
 </div>
 
